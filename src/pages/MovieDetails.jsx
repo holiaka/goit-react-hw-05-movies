@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link} from 'react-router-dom';
+import { useParams, Link, Route, Routes} from 'react-router-dom';
 import { findFilmDetails } from 'axiosAPI/axios';
+import { Cast } from "./Cast";
+import { Reviews } from "./Reviews";
 
 const baseImageURL = 'https://image.tmdb.org/t/p/w500/';
 
@@ -15,9 +17,9 @@ export const MovieDetails = () => {
     release_date = '',
     vote_average,
     overview,
-    genres=[],
+    genres = [],
   } = details;
-    
+
   useEffect(() => {
     const showMainDetails = async () => {
       let discr = await findFilmDetails(id);
@@ -38,27 +40,34 @@ export const MovieDetails = () => {
         </div>
         <div>
           <h2>
-            {`${original_title}`}{' '}
-                      <span>({release_date.slice(0, 4)})</span>
+            {`${original_title}`} <span>({release_date.slice(0, 4)})</span>
           </h2>
           <p>User Scope: {`${Math.round(vote_average * 10)}%`}</p>
           <h3>Overview</h3>
           <p>{overview}</p>
           <h3>Genres</h3>
           <p>
-            {genres.map(genre => 
+            {genres.map(genre => (
               <span key={genre.id}>{genre.name + ' '}</span>
-            )}
+            ))}
           </p>
         </div>
-          </div>
-          <div>
-              <p>Additional information</p>
-              <ul>
-                  <li><Link>Cast</Link></li>
-                  <li><Link>Reviews</Link></li>
-              </ul>
-          </div>
+      </div>
+      <div>
+        <p>Additional information</p>
+        <ul>
+          <li>
+            <Link to="cast">Cast</Link>
+          </li>
+          <li>
+            <Link to="reviews">Reviews</Link>
+          </li>
+        </ul>
+      </div>
+      <Routes>
+        <Route path="cast" element={<Cast id={id} />}></Route>
+        <Route path="reviews" element={<Reviews id={id} />}></Route>
+      </Routes>      
     </>
   );
 };

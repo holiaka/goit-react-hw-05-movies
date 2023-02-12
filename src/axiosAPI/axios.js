@@ -25,3 +25,25 @@ export const findFilmDetails = async (id) => {
   }
 };
 
+export const findActors = async (id) => {
+  try {
+    const response = await axios(
+      `${baseURL}movie/${id}/credits?${KEY}`
+    );
+    return response.data.cast;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const findReviews = async (id) => {
+  try {
+    const response = await axios(
+      `${baseURL}movie/${id}/credits?${KEY}`
+    );
+    console.log("reviews", response.data)
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
