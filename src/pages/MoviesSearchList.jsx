@@ -1,11 +1,36 @@
-import { Link } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { findFilmByKeyword } from 'axiosAPI/axios';
 
-export const MoviesSearchList = ({ searchFilmList }) => {
-    console.log(searchFilmList);
-  
-    return (
-    <ul>
-            {searchFilmList.map(({ id, title }) => { return (<li key={id}> <Link to={`${id}`}>{title}</Link></li>) })}
+export const MoviesSearchList = ({ filmQuery }) => {
+    const location = useLocation();
+    console.log(location.state)
+  const [searchFilmList, setSearchFilmList] = useState([]);
+
+  useEffect(() => {
+    const fetchFilmList = async () => {        
+        const films = await findFilmByKeyword(filmQuery);
+        if (films.length > 0) {        
+        setSearchFilmList(films);
+      } else {
+        alert('Nothing was found for your request!!!');
+      }
+    };
+      fetchFilmList();
+  }, [filmQuery]);
+
+  return (
+      <ul>        
+      {searchFilmList.map(({ id, title }) => {
+        return (
+          <li key={id}>
+            {' '}
+            <Link to={`${id}`} state={location}>
+              {title}
+            </Link>
+          </li>
+        );
+      })}
     </ul>
   );
 };

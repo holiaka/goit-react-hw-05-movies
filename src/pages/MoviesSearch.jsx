@@ -1,22 +1,18 @@
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { findFilmByKeyword } from 'axiosAPI/axios';
 import { MoviesSearchList } from './MoviesSearchList';
 
 export const MoviesSearch = () => {
-    const navigate = useNavigate();
-    const location = useLocation();
-    const searchString = new URLSearchParams(location.search).get('query');
-    const [filmQuery, setFilmQuery] = useState('');
-    const [searchFilmList, setSearchFilmList] = useState([])
+  const navigate = useNavigate();
+  const location = useLocation();
+  const searchString = new URLSearchParams(location.search).get('query');
+  const [filmQuery, setFilmQuery] = useState('');
 
-  // useEffect(() => {
-  //     setFilmQuery(setQuery);
-  // }, []);
-
-  async function setQuery(evt) {
+  function setQuery(evt) {
     evt.preventDefault();
-    const keywordQuery = evt.target.elements.filmInput.value.trim().toLowerCase();
+    const keywordQuery = evt.target.elements.filmInput.value
+      .trim()
+      .toLowerCase();
     if (keywordQuery === '') {
       alert('The query input field is empty');
       return;
@@ -25,14 +21,7 @@ export const MoviesSearch = () => {
       return;
     }
     setFilmQuery(keywordQuery);
-    const films = await findFilmByKeyword(keywordQuery);
-      console.log(films);
-    if (films.length>0) {
-        navigate(`?query=${keywordQuery}`);
-        setSearchFilmList(films);
-    } else {
-        alert('Nothing was found for your request!!!');
-    }
+    navigate(`?query=${keywordQuery}`);
     evt.target.elements.filmInput.value = '';
   }
 
@@ -44,7 +33,7 @@ export const MoviesSearch = () => {
           <button type="submit">Search</button>
         </form>
       </div>
-          {searchString && <MoviesSearchList searchFilmList={searchFilmList} />}
+      {searchString && <MoviesSearchList filmQuery={searchString} />}
     </>
   );
 };

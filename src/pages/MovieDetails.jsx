@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link, Route, Routes} from 'react-router-dom';
+import { useParams, Link, Route, Routes, useLocation, useNavigate} from 'react-router-dom';
 import { findFilmDetails } from 'axiosAPI/axios';
 import { Cast } from "./Cast";
 import { Reviews } from "./Reviews";
@@ -8,7 +8,8 @@ const baseImageURL = 'https://image.tmdb.org/t/p/w500/';
 
 export const MovieDetails = () => {
   const [details, setDetails] = useState({});
-  //   const location = useLocation();
+  const location = useLocation();
+  const navigate = useNavigate();
   const { id } = useParams();
 
   let {
@@ -28,9 +29,17 @@ export const MovieDetails = () => {
     showMainDetails();
   }, [id]);
 
+  function goPrevPage() {
+    if (location.state) {
+      navigate(location.state);
+    } else {
+      navigate("/");
+    }
+  }
+
   return (
     <>
-      <button type="button">GO BACK</button>
+      <button type="button" onClick={goPrevPage} state={'back'}><b>&#8678;</b> GO BACK</button>
       <div>
         <div>
           <img
