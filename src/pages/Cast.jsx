@@ -10,7 +10,6 @@ export const Cast = ({ id }) => {
   useEffect(() => {
     const showActors = async () => {
       let actors = await findActors(id);
-      console.log('actors', actors);
       setActorList(actors);
     };
     showActors();

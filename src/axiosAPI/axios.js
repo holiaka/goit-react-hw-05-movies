@@ -14,6 +14,17 @@ export const trendQuery = async () => {
   }
 };
 
+export const findFilmByKeyword = async (keyword) => {
+  try {
+    const response = await axios(
+      `${baseURL}search/movie?${KEY}&page=1&query=${keyword}`
+    );
+    return response.data.results;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const findFilmDetails = async (id) => {
   try {
     const response = await axios(
@@ -39,10 +50,10 @@ export const findActors = async (id) => {
 export const findReviews = async (id) => {
   try {
     const response = await axios(
-      `${baseURL}movie/${id}/credits?${KEY}`
+      `${baseURL}movie/${id}/reviews?${KEY}`
     );
-    console.log("reviews", response.data)
-    return response.data;
+    console.log("reviews", response.data.results)
+    return response.data.results;
   } catch (error) {
     console.error(error);
   }

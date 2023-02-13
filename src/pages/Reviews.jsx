@@ -1,28 +1,35 @@
-// import { useState, useEffect } from 'react';
-// import { useParams, Link } from 'react-router-dom';
-// import { findActors } from 'axiosAPI/axios';
+import { useState, useEffect } from 'react';
+import { findReviews } from 'axiosAPI/axios';
 
-export const Reviews = () => {
-    // const [actorList, setActorList] = useState(null)
-    // const { id } = useParams();
-    // console.log('id', id)
+export const Reviews = ({ id }) => {
+  const [reviewList, setReviewList] = useState([]);
 
-    // useEffect(() => {
-    //     const showActors = async() => {
-    //         let actors = await findActors(id);
-    //         console.log("actors", actors);
-    //         setActorList(actors);
-    //     }
-    //     showActors();
+  useEffect(() => {
+    const showReviews = async () => {
+      let reviews = await findReviews(id);
+      setReviewList(reviews);
+    };
+    showReviews();
+  }, [id]);
 
-    // }, [id])
-
-    // return (
-    //     <>
-    //         <div>
-    //             {/* <img src="" alt="" />                 */}
-    //         </div>
-    //         <p>kgjdfkgjd</p>
-    //     </>
-    // )
-}
+  return (
+    <>
+      {reviewList.length === 0 ? (
+        <h3>
+          There is no information about the film`s reviews in the database!
+        </h3>
+      ) : (
+        <ul>
+          {reviewList.map(
+            ({ id, author = 'Not available', content = 'Not available' }) => (
+              <li key={id}>
+                <h3>Review's name: {author}</h3>
+                <p> {content}</p>
+              </li>
+            )
+          )}
+        </ul>
+      )}
+    </>
+  );
+};
