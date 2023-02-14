@@ -1,12 +1,19 @@
+// import {lazy} from 'react';
 import { Route, Routes } from "react-router-dom";
 import { SharedLayout } from "./SharedLayout/SharedLayout";
-import { Home } from "../pages/Home";
-import { MoviesSearch } from "../pages/MoviesSearch";
-import { MovieDetails } from "../pages/MovieDetails";
-import { NoPage } from "../pages/NoPage";
+// import { Loader } from './Loader/Loader';
+
+import Home from "./Home/Home";
+import MoviesSearch from "./MoviesSearch/MoviesSearch";
+import MovieDetails from "./MovieDetails/MovieDetails";
+import NoPage from "./NoPage/NoPage";
+
+// const Home = lazy(() => import("./Home/Home"));
+// const MoviesSearch = lazy(() => import("./MoviesSearch/MoviesSearch"));
+// const MovieDetails = lazy(() => import("./MovieDetails/MovieDetails"));
+// const NoPage = lazy(() => import("./NoPage/NoPage"));
 
 export const App = () => {
-
   return (
     <div>
       <Routes>
@@ -17,7 +24,6 @@ export const App = () => {
           <Route path="*" element={<NoPage />}></Route>
         </Route>
       </Routes>
-      
     </div>
   );
 };

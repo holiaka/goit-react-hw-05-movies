@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { findActors } from 'axiosAPI/axios';
-import noPhoto from '../images/pic.jpeg';
+import noPhoto from '../../images/pic.jpeg';
 
 const baseImageURL = 'https://image.tmdb.org/t/p/w500/';
 

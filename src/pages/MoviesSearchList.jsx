@@ -4,7 +4,6 @@ import { findFilmByKeyword } from 'axiosAPI/axios';
 
 export const MoviesSearchList = ({ filmQuery }) => {
     const location = useLocation();
-    console.log(location.state)
   const [searchFilmList, setSearchFilmList] = useState([]);
 
   useEffect(() => {
@@ -16,7 +15,7 @@ export const MoviesSearchList = ({ filmQuery }) => {
         alert('Nothing was found for your request!!!');
       }
     };
-      fetchFilmList();
+    fetchFilmList();
   }, [filmQuery]);
 
   return (

@@ -4,7 +4,7 @@ export const Loader = () => {
   return (
     <LoaderOverlay>
       <Spinner
-        strokeColor="grey"
+        strokeColor="black"
         strokeWidth="5"
         animationDuration="0.75"
         width="96"

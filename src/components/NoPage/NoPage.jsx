@@ -1,6 +1,6 @@
-import NoFoundImage from '../images/no_page.png';
+import NoFoundImage from '../../images/no_page.png';
 
-export const NoPage = () => {
+const NoPage = () => {
   return (
       <div>
           <h1>This page does not exist on the website</h1>
@@ -8,3 +8,5 @@ export const NoPage = () => {
     </div>
   );
 };
+
+export default NoPage;

@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link, Route, Routes, useLocation, useNavigate} from 'react-router-dom';
 import { findFilmDetails } from 'axiosAPI/axios';
-import { Cast } from "./Cast";
-import { Reviews } from "./Reviews";
+import { Cast } from "../Cast/Cast";
+import { Reviews } from "../../pages/Reviews";
 
 const baseImageURL = 'https://image.tmdb.org/t/p/w500/';
 
-export const MovieDetails = () => {
+const MovieDetails = () => {
   const [details, setDetails] = useState({});
   const location = useLocation();
   const navigate = useNavigate();
@@ -80,3 +80,5 @@ export const MovieDetails = () => {
     </>
   );
 };
+
+export default MovieDetails;

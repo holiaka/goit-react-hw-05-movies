@@ -1,13 +1,14 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { trendQuery } from '../axiosAPI/axios';
+import { trendQuery } from '../../axiosAPI/axios';
 
-export const Home = () => {
+
+const Home = () => {
   const [filmList, setFilmList] = useState([]);
   const location = useLocation();
 
   useEffect(() => {
-    const createFilmList = async () => {
+    const createFilmList = async () => {      
       let films = await trendQuery();
       setFilmList(films);
     };
@@ -29,3 +30,5 @@ export const Home = () => {
     </div>
   );
 };
+
+export default Home;

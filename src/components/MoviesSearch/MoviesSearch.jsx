@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { MoviesSearchList } from './MoviesSearchList';
+import { MoviesSearchList } from '../../pages/MoviesSearchList';
 
-export const MoviesSearch = () => {
+const MoviesSearch = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const searchString = new URLSearchParams(location.search).get('query');
@@ -37,3 +37,5 @@ export const MoviesSearch = () => {
     </>
   );
 };
+
+export default MoviesSearch;
