@@ -8,7 +8,7 @@ const Home = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const createFilmList = async () => {      
+    const createFilmList = async () => {
       let films = await trendQuery();
       setFilmList(films);
     };

@@ -1,11 +1,17 @@
 import { Suspense, lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 import { SharedLayout } from './SharedLayout/SharedLayout';
 import { Loader } from './Loader/Loader';
 const Home = lazy(() => import('./Home/Home'));
 const MoviesSearch = lazy(() => import('./MoviesSearch/MoviesSearch'));
 const MovieDetails = lazy(() => import('./MovieDetails/MovieDetails'));
 const NoPage = lazy(() => import('./NoPage/NoPage'));
+
+<Toaster
+  position="top-center" 
+  reverseOrder={false}
+/>
 
 export const App = () => {
   return (
@@ -20,6 +26,7 @@ export const App = () => {
           </Route>
         </Routes>
       </Suspense>
+      <Toaster />
     </div>
   );
 };

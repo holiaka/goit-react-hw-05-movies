@@ -1,6 +1,7 @@
-import { Btn } from 'components/MovieDetails/MovieDetails.styled';
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { Btn } from 'components/MovieDetails/MovieDetails.styled';
 import { MoviesSearchList } from '../../pages/MoviesSearchList';
 import { Input } from './MoviesSearch.styled';
 
@@ -16,10 +17,10 @@ const MoviesSearch = () => {
       .trim()
       .toLowerCase();
     if (keywordQuery === '') {
-      alert('The query input field is empty');
+      toast.error('The query input field is empty');
       return;
     } else if (keywordQuery === filmQuery) {
-      alert('You have not changed your request');
+      toast.error('You have not changed your request');
       return;
     }
     setFilmQuery(keywordQuery);
