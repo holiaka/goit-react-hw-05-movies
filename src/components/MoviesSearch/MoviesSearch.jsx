@@ -1,6 +1,8 @@
+import { Btn } from 'components/MovieDetails/MovieDetails.styled';
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { MoviesSearchList } from '../../pages/MoviesSearchList';
+import { Input } from './MoviesSearch.styled';
 
 const MoviesSearch = () => {
   const navigate = useNavigate();
@@ -29,8 +31,11 @@ const MoviesSearch = () => {
     <>
       <div>
         <form onSubmit={setQuery}>
-          <input type="text" name="filmInput" />
-          <button type="submit">Search</button>
+          <Input
+          type="text" 
+          name="filmInput"
+          placeholder='Enter the movie(s) title or keywords' />
+          <Btn type="submit">Search</Btn>
         </form>
       </div>
       {searchString && <MoviesSearchList filmQuery={searchString} />}

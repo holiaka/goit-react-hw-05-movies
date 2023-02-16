@@ -1,8 +1,16 @@
-import { useState, useEffect } from 'react';
-import { useParams, Link, Route, Routes, useLocation, useNavigate} from 'react-router-dom';
+import { useState, useEffect, Suspense, lazy } from 'react';
+import {
+  useParams,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from 'react-router-dom';
 import { findFilmDetails } from 'axiosAPI/axios';
-import { Cast } from "../Cast/Cast";
-import { Reviews } from "../../pages/Reviews";
+import { Loader } from '../Loader/Loader';
+import { AddInformBox, Btn, Disc, Wrapper, Link } from './MovieDetails.styled';
+const Cast = lazy(() => import('../Cast/Cast'));
+const Reviews = lazy(() => import('../../pages/Reviews'));
 
 const baseImageURL = 'https://image.tmdb.org/t/p/w500/';
 
@@ -13,11 +21,11 @@ const MovieDetails = () => {
   const { id } = useParams();
 
   let {
-    poster_path,
-    original_title,
+    poster_path ='',
+    original_title = '',
     release_date = '',
     vote_average,
-    overview,
+    overview = '',
     genres = [],
   } = details;
 
@@ -33,37 +41,40 @@ const MovieDetails = () => {
     if (location.state) {
       navigate(location.state);
     } else {
-      navigate("/");
+      navigate('/');
     }
   }
 
   return (
     <>
-      <button type="button" onClick={goPrevPage} state={'back'}><b>&#8678;</b> GO BACK</button>
-      <div>
+      <Btn type="button" onClick={goPrevPage}>
+        <b>&#8678;</b> GO BACK
+      </Btn>
+      <Wrapper>
         <div>
           <img
             src={`${baseImageURL}${poster_path}`}
-            alt={`${original_title}`}
+            alt={`${original_title}`} 
+            width="350"
           />
         </div>
         <div>
           <h2>
             {`${original_title}`} <span>({release_date.slice(0, 4)})</span>
           </h2>
-          <p>User Scope: {`${Math.round(vote_average * 10)}%`}</p>
+          <Disc>User Scope: {`${Math.round(vote_average * 10)}%`}</Disc>
           <h3>Overview</h3>
-          <p>{overview}</p>
+          <Disc>{overview}</Disc>
           <h3>Genres</h3>
-          <p>
+          <Disc>
             {genres.map(genre => (
               <span key={genre.id}>{genre.name + ' '}</span>
             ))}
-          </p>
+          </Disc>
         </div>
-      </div>
-      <div>
-        <p>Additional information</p>
+      </Wrapper>
+      <AddInformBox>
+        <h3>Additional information</h3>
         <ul>
           <li>
             <Link to="cast">Cast</Link>
@@ -72,11 +83,13 @@ const MovieDetails = () => {
             <Link to="reviews">Reviews</Link>
           </li>
         </ul>
-      </div>
-      <Routes>
-        <Route path="cast" element={<Cast id={id} />}></Route>
-        <Route path="reviews" element={<Reviews id={id} />}></Route>
-      </Routes>      
+      </AddInformBox>
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route path="cast" element={<Cast id={id} />}></Route>
+          <Route path="reviews" element={<Reviews id={id} />}></Route>
+        </Routes>
+      </Suspense>
     </>
   );
 };

@@ -11,9 +11,16 @@ export const Container = styled.div`
 export const HeaderNav = styled.header`
     display: flex;
     gap: 20px;
+    padding: 20px;
+    border-bottom: 1px solid;
 `
 
 export const Link = styled(NavLink)`
     font-size: 20px;
     font-weight: 700;
+    text-decoration: none;
+    color: black;
+    :hover{
+        color: blue;
+    }
 `;

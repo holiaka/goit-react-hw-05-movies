@@ -1,15 +1,19 @@
 import { useState, useEffect } from 'react';
 import { findActors } from 'axiosAPI/axios';
+import PropTypes from 'prop-types';
+import { filterFuncToArrById } from 'filterFuncToArrById/filterFuncToArrById';
 import noPhoto from '../../images/pic.jpeg';
+import { CastLi } from './Cast.styled';
 
 const baseImageURL = 'https://image.tmdb.org/t/p/w500/';
 
-export const Cast = ({ id }) => {
+const Cast = ({ id }) => {
   const [actorList, setActorList] = useState([]);
 
   useEffect(() => {
     const showActors = async () => {
       let actors = await findActors(id);
+      actors = filterFuncToArrById(actors);
       setActorList(actors);
     };
     showActors();
@@ -30,7 +34,7 @@ export const Cast = ({ id }) => {
               name = 'Not available',
               character = 'Not available',
             }) => (
-              <li key={id}>
+              <CastLi key={id}>
                 <div>
                   <img
                     src={
@@ -40,9 +44,11 @@ export const Cast = ({ id }) => {
                     width="250"
                   />
                 </div>
-                <h3>Actor's name: {name}</h3>
-                <p>Character: {character}</p>
-              </li>
+                <div>
+                  <h3>Actor's name: {name}</h3>
+                  <p>Character: {character}</p>
+                </div>                
+              </CastLi>
             )
           )}
         </ul>
@@ -50,3 +56,9 @@ export const Cast = ({ id }) => {
     </>
   );
 };
+
+export default Cast;
+
+Cast.propTypes = {
+  id: PropTypes.string.isRequired,
+}

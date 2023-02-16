@@ -1,4 +1,5 @@
 import axios from 'axios';
+// import toast, { Toaster } from 'react-hot-toast';
 
 const baseURL = 'https://api.themoviedb.org/3/';
 const KEY = 'api_key=6e7eaf256e2890a0f83bf0d8fe3fe4d9'
@@ -52,7 +53,6 @@ export const findReviews = async (id) => {
     const response = await axios(
       `${baseURL}movie/${id}/reviews?${KEY}`
     );
-    console.log("reviews", response.data.results)
     return response.data.results;
   } catch (error) {
     console.error(error);

@@ -1,4 +1,4 @@
-// import PropTypes from 'prop-types';
+
 import { Outlet } from "react-router-dom";
 import { Container, HeaderNav, Link } from "./SharedLayout.styled";
 

@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { findReviews } from 'axiosAPI/axios';
+import { filterFuncToArrById } from 'filterFuncToArrById/filterFuncToArrById';
 
-export const Reviews = ({ id }) => {
+const Reviews = ({ id }) => {
   const [reviewList, setReviewList] = useState([]);
 
   useEffect(() => {
     const showReviews = async () => {
       let reviews = await findReviews(id);
+      reviews = filterFuncToArrById(reviews);
       setReviewList(reviews);
     };
     showReviews();
@@ -33,3 +36,9 @@ export const Reviews = ({ id }) => {
     </>
   );
 };
+
+export default Reviews;
+
+Reviews.propTypes = {
+  id: PropTypes.string.isRequired,
+}

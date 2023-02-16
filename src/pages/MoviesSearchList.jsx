@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { findFilmByKeyword } from 'axiosAPI/axios';
+import { Link } from 'components/MovieDetails/MovieDetails.styled';
 
 export const MoviesSearchList = ({ filmQuery }) => {
     const location = useLocation();
@@ -25,7 +27,7 @@ export const MoviesSearchList = ({ filmQuery }) => {
           <li key={id}>
             {' '}
             <Link to={`${id}`} state={location}>
-              {title}
+              {title}&#9759;
             </Link>
           </li>
         );
@@ -33,3 +35,7 @@ export const MoviesSearchList = ({ filmQuery }) => {
     </ul>
   );
 };
+
+MoviesSearchList.propTypes = {
+  filmQuery: PropTypes.string.isRequired,
+}
