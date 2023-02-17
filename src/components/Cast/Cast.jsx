@@ -1,23 +1,24 @@
 import { useState, useEffect } from 'react';
 import { findActors } from 'axiosAPI/axios';
-import PropTypes from 'prop-types';
+import { useLocation } from 'react-router-dom';
 import { filterFuncToArrById } from 'filterFuncToArrById/filterFuncToArrById';
 import noPhoto from '../../images/pic.jpeg';
 import { CastLi } from './Cast.styled';
 
 const baseImageURL = 'https://image.tmdb.org/t/p/w500/';
 
-const Cast = ({ id }) => {
+const Cast = () => {
   const [actorList, setActorList] = useState([]);
+  const location = useLocation();
 
   useEffect(() => {
     const showActors = async () => {
-      let actors = await findActors(id);
+      let actors = await findActors(location.state);
       actors = filterFuncToArrById(actors);
       setActorList(actors);
     };
     showActors();
-  }, [id]);
+  }, [location]);
 
   return (
     <>
@@ -58,7 +59,3 @@ const Cast = ({ id }) => {
 };
 
 export default Cast;
-
-Cast.propTypes = {
-  id: PropTypes.string.isRequired,
-}

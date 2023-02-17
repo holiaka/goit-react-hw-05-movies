@@ -1,16 +1,13 @@
-import { useState, useEffect, Suspense, lazy } from 'react';
+import { useState, useEffect, Suspense} from 'react';
 import {
   useParams,
-  Route,
-  Routes,
   useLocation,
   useNavigate,
+  Outlet,
 } from 'react-router-dom';
 import { findFilmDetails } from 'axiosAPI/axios';
 import { Loader } from '../Loader/Loader';
 import { AddInformBox, Btn, Disc, Wrapper, Link } from './MovieDetails.styled';
-const Cast = lazy(() => import('../Cast/Cast'));
-const Reviews = lazy(() => import('../../pages/Reviews'));
 
 const baseImageURL = 'https://image.tmdb.org/t/p/w500/';
 
@@ -77,18 +74,15 @@ const MovieDetails = () => {
         <h3>Additional information</h3>
         <ul>
           <li>
-            <Link to="cast">Cast</Link>
+            <Link to="cast" state={id}>Cast</Link>
           </li>
           <li>
-            <Link to="reviews">Reviews</Link>
+            <Link to="reviews" state={id}>Reviews</Link>
           </li>
         </ul>
       </AddInformBox>
       <Suspense fallback={<Loader />}>
-        <Routes>
-          <Route path="cast" element={<Cast id={id} />}></Route>
-          <Route path="reviews" element={<Reviews id={id} />}></Route>
-        </Routes>
+        <Outlet/>
       </Suspense>
     </>
   );

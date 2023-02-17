@@ -1,19 +1,20 @@
 import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { findReviews } from 'axiosAPI/axios';
 import { filterFuncToArrById } from 'filterFuncToArrById/filterFuncToArrById';
+import { useLocation } from 'react-router-dom';
 
-const Reviews = ({ id }) => {
+const Reviews = () => {
   const [reviewList, setReviewList] = useState([]);
+  const location = useLocation();
 
-  useEffect(() => {
+  useEffect(() => {    
     const showReviews = async () => {
-      let reviews = await findReviews(id);
+      let reviews = await findReviews(location.state);
       reviews = filterFuncToArrById(reviews);
       setReviewList(reviews);
     };
     showReviews();
-  }, [id]);
+  }, [location]);
 
   return (
     <>
@@ -38,7 +39,3 @@ const Reviews = ({ id }) => {
 };
 
 export default Reviews;
-
-Reviews.propTypes = {
-  id: PropTypes.string.isRequired,
-}
