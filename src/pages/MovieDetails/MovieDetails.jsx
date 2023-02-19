@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, Suspense } from 'react';
 import { useParams, useLocation, useNavigate, Outlet } from 'react-router-dom';
 import { findFilmDetails } from 'axiosAPI/axios';
-import { Loader } from '../Loader/Loader';
+import { Loader } from '../../components/Loader/Loader';
 import { AddInformBox, Btn, Disc, Wrapper, Link } from './MovieDetails.styled';
 
 const baseImageURL = 'https://image.tmdb.org/t/p/w500/';

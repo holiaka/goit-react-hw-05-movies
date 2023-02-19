@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { useSearchParams, useLocation } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { findFilmByKeyword } from '../../axiosAPI/axios';
-import { Btn } from 'components/MovieDetails/MovieDetails.styled';
-import { MovieList } from '../MovieList/MovieList';
+import { Btn } from '../MovieDetails/MovieDetails.styled';
+import { MovieList } from '../../components/MovieList/MovieList';
 import { Input } from './MoviesSearch.styled';
 
 const MoviesSearch = () => {

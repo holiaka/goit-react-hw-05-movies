@@ -3,11 +3,11 @@ import { Route, Routes } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { SharedLayout } from './SharedLayout/SharedLayout';
 import { Loader } from './Loader/Loader';
-const Home = lazy(() => import('./Home/Home'));
-const MoviesSearch = lazy(() => import('./MoviesSearch/MoviesSearch'));
-const MovieDetails = lazy(() => import('./MovieDetails/MovieDetails'));
-const Cast = lazy(() => import('./Cast/Cast'));
-const Reviews = lazy(() => import('./Reviews/Reviews'));
+const Home = lazy(() => import('../pages/Home/Home'));
+const MoviesSearch = lazy(() => import('../pages/MoviesSearch/MoviesSearch'));
+const MovieDetails = lazy(() => import('../pages/MovieDetails/MovieDetails'));
+const Cast = lazy(() => import('../pages/Cast/Cast'));
+const Reviews = lazy(() => import('../pages/Reviews/Reviews'));
 const NoPage = lazy(() => import('./NoPage/NoPage'));
 
 <Toaster position="top-center" reverseOrder={false} />;

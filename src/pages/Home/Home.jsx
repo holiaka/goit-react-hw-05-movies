@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { trendQuery } from '../../axiosAPI/axios';
 import { HomeTitle } from './Home.styled';
-import { MovieList } from '../MovieList/MovieList';
+import { MovieList } from '../../components/MovieList/MovieList';
 
 const Home = () => {
   const [filmList, setFilmList] = useState([]);
