@@ -1,15 +1,17 @@
-import { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useSearchParams, useLocation } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { findFilmByKeyword } from '../../axiosAPI/axios';
 import { Btn } from 'components/MovieDetails/MovieDetails.styled';
-import { MoviesSearchList } from '../../pages/MoviesSearchList';
+import { MovieList } from '../MovieList/MovieList';
 import { Input } from './MoviesSearch.styled';
 
 const MoviesSearch = () => {
-  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
-  const searchString = new URLSearchParams(location.search).get('query');
-  const [filmQuery, setFilmQuery] = useState('');
+  const [filmQuery, setFilmQuery] = useState();
+  const [searchFilmList, setSearchFilmList] = useState([]);
+  let query = searchParams.get('query');
 
   function setQuery(evt) {
     evt.preventDefault();
@@ -19,27 +21,44 @@ const MoviesSearch = () => {
     if (keywordQuery === '') {
       toast.error('The query input field is empty');
       return;
-    } else if (keywordQuery === filmQuery) {
+    }
+    if (keywordQuery === filmQuery) {
       toast.error('You have not changed your request');
       return;
     }
     setFilmQuery(keywordQuery);
-    navigate(`?query=${keywordQuery}`);
+    setSearchParams({ query: keywordQuery });
     evt.target.elements.filmInput.value = '';
   }
+
+  useEffect(() => {
+    const fetchFilmList = async () => {
+      if (!query ) {
+        return;
+      }
+      const films = await findFilmByKeyword(query);
+      if (films.length > 0) {
+        setSearchFilmList(films);
+      } else {
+        toast.error('Nothing was found for your request!!!');
+      }
+    };
+    fetchFilmList();
+  }, [query, searchFilmList, location]);
 
   return (
     <>
       <div>
         <form onSubmit={setQuery}>
           <Input
-          type="text" 
-          name="filmInput"
-          placeholder='Enter the movie(s) title or keywords' />
+            type="text"
+            name="filmInput"
+            placeholder="Enter the movie(s) title or keywords"
+          />
           <Btn type="submit">Search</Btn>
         </form>
       </div>
-      {searchString && <MoviesSearchList filmQuery={searchString} />}
+      {searchFilmList && <MovieList filmList={searchFilmList} />}
     </>
   );
 };

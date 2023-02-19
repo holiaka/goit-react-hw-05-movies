@@ -7,7 +7,7 @@ const Home = lazy(() => import('./Home/Home'));
 const MoviesSearch = lazy(() => import('./MoviesSearch/MoviesSearch'));
 const MovieDetails = lazy(() => import('./MovieDetails/MovieDetails'));
 const Cast = lazy(() => import('./Cast/Cast'));
-const Reviews = lazy(() => import('../pages/Reviews'));
+const Reviews = lazy(() => import('./Reviews/Reviews'));
 const NoPage = lazy(() => import('./NoPage/NoPage'));
 
 <Toaster position="top-center" reverseOrder={false} />;

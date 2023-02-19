@@ -1,10 +1,5 @@
-import { useState, useEffect, Suspense} from 'react';
-import {
-  useParams,
-  useLocation,
-  useNavigate,
-  Outlet,
-} from 'react-router-dom';
+import { useState, useEffect, useRef, Suspense } from 'react';
+import { useParams, useLocation, useNavigate, Outlet } from 'react-router-dom';
 import { findFilmDetails } from 'axiosAPI/axios';
 import { Loader } from '../Loader/Loader';
 import { AddInformBox, Btn, Disc, Wrapper, Link } from './MovieDetails.styled';
@@ -12,19 +7,16 @@ import { AddInformBox, Btn, Disc, Wrapper, Link } from './MovieDetails.styled';
 const baseImageURL = 'https://image.tmdb.org/t/p/w500/';
 
 const MovieDetails = () => {
-  const [details, setDetails] = useState({});
+  const [details, setDetails] = useState({
+    poster_path: "",
+    release_date: '',
+    genres: [],
+  });
+
   const location = useLocation();
+  const goBackLocation = useRef(`${location.state.pathname}${location.state.search}`);
   const navigate = useNavigate();
   const { id } = useParams();
-
-  let {
-    poster_path ='',
-    original_title = '',
-    release_date = '',
-    vote_average,
-    overview = '',
-    genres = [],
-  } = details;
 
   useEffect(() => {
     const showMainDetails = async () => {
@@ -35,8 +27,8 @@ const MovieDetails = () => {
   }, [id]);
 
   function goPrevPage() {
-    if (location.state) {
-      navigate(location.state);
+    if (goBackLocation.current) {
+      navigate(goBackLocation.current);
     } else {
       navigate('/');
     }
@@ -50,21 +42,22 @@ const MovieDetails = () => {
       <Wrapper>
         <div>
           <img
-            src={`${baseImageURL}${poster_path}`}
-            alt={`${original_title}`} 
+            src={`${baseImageURL}${details.poster_path}`}
+            alt={`${details.original_title}`}
             width="350"
           />
         </div>
         <div>
           <h2>
-            {`${original_title}`} <span>({release_date.slice(0, 4)})</span>
+            {`${details.original_title}`}{' '}
+            <span>({details.release_date.slice(0, 4)})</span>
           </h2>
-          <Disc>User Scope: {`${Math.round(vote_average * 10)}%`}</Disc>
+          <Disc>User Scope: {`${Math.round(details.vote_average * 10)}%`}</Disc>
           <h3>Overview</h3>
-          <Disc>{overview}</Disc>
+          <Disc>{details.overview}</Disc>
           <h3>Genres</h3>
           <Disc>
-            {genres.map(genre => (
+            {details.genres.map(genre => (
               <span key={genre.id}>{genre.name + ' '}</span>
             ))}
           </Disc>
@@ -74,15 +67,19 @@ const MovieDetails = () => {
         <h3>Additional information</h3>
         <ul>
           <li>
-            <Link to="cast" state={id}>Cast</Link>
+            <Link to="cast" state={id}>
+              Cast
+            </Link>
           </li>
           <li>
-            <Link to="reviews" state={id}>Reviews</Link>
+            <Link to="reviews" state={id}>
+              Reviews
+            </Link>
           </li>
         </ul>
       </AddInformBox>
       <Suspense fallback={<Loader />}>
-        <Outlet/>
+        <Outlet />
       </Suspense>
     </>
   );
