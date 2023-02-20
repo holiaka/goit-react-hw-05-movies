@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useSearchParams, useLocation } from 'react-router-dom';
+import { useSearchParams} from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { findFilmByKeyword } from '../../axiosAPI/axios';
 import { Btn } from '../MovieDetails/MovieDetails.styled';
@@ -8,7 +8,7 @@ import { Input } from './MoviesSearch.styled';
 
 const MoviesSearch = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const location = useLocation();
+
   const [filmQuery, setFilmQuery] = useState();
   const [searchFilmList, setSearchFilmList] = useState([]);
   let query = searchParams.get('query');
@@ -44,7 +44,7 @@ const MoviesSearch = () => {
       }
     };
     fetchFilmList();
-  }, [query, searchFilmList, location]);
+  }, [query]);
 
   return (
     <>

@@ -13,8 +13,8 @@ const MovieDetails = () => {
     genres: [],
   });
 
-  const location = useLocation();
-  const goBackLocation = useRef(`${location.state.pathname}${location.state.search}`);
+  const location = useLocation("");
+  const goBackLocation = useRef(`${location?.state?.pathname}${location?.state?.search}`);
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -27,7 +27,7 @@ const MovieDetails = () => {
   }, [id]);
 
   function goPrevPage() {
-    if (goBackLocation.current) {
+  if (!goBackLocation.current.includes("undefined")) {
       navigate(goBackLocation.current);
     } else {
       navigate('/');
