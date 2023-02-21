@@ -1,20 +1,20 @@
 import { useState, useEffect } from 'react';
 import { findReviews } from 'axiosAPI/axios';
 import { filterFuncToArrById } from 'filterFuncToArrById/filterFuncToArrById';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 const Reviews = () => {
   const [reviewList, setReviewList] = useState([]);
-  const location = useLocation();
+  const {id} = useParams();
 
   useEffect(() => {    
     const showReviews = async () => {
-      let reviews = await findReviews(location.state);
+      let reviews = await findReviews(id);
       reviews = filterFuncToArrById(reviews);
       setReviewList(reviews);
     };
     showReviews();
-  }, [location]);
+  }, [id]);
 
   return (
     <>
@@ -25,8 +25,8 @@ const Reviews = () => {
       ) : (
         <ul>
           {reviewList.map(
-            ({ id, author = 'Not available', content = 'Not available' }) => (
-              <li key={id}>
+            ({author = 'Not available', content = 'Not available' }, idx) => (
+              <li key={idx}>
                 <h3>Review's name: {author}</h3>
                 <p> {content}</p>
               </li>

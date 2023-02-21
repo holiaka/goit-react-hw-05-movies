@@ -67,12 +67,12 @@ const MovieDetails = () => {
         <h3>Additional information</h3>
         <ul>
           <li>
-            <Link to="cast" state={id}>
+            <Link to="cast">
               Cast
             </Link>
           </li>
           <li>
-            <Link to="reviews" state={id}>
+            <Link to="reviews">
               Reviews
             </Link>
           </li>

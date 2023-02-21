@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { findActors } from 'axiosAPI/axios';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { filterFuncToArrById } from 'filterFuncToArrById/filterFuncToArrById';
 import noPhoto from '../../images/pic.jpeg';
 import { CastLi } from './Cast.styled';
@@ -9,16 +9,16 @@ const baseImageURL = 'https://image.tmdb.org/t/p/w500/';
 
 const Cast = () => {
   const [actorList, setActorList] = useState([]);
-  const location = useLocation();
+  const { id } = useParams();
 
   useEffect(() => {
     const showActors = async () => {
-      let actors = await findActors(location.state);
+      let actors = await findActors(id);
       actors = filterFuncToArrById(actors);
       setActorList(actors);
     };
     showActors();
-  }, [location]);
+  }, [id]);
 
   return (
     <>
@@ -30,12 +30,11 @@ const Cast = () => {
         <ul>
           {actorList.map(
             ({
-              id,
-              profile_path,
+              profile_path = '',
               name = 'Not available',
               character = 'Not available',
-            }) => (
-              <CastLi key={id}>
+            }, idx) => (
+              <CastLi key={idx}>
                 <div>
                   <img
                     src={
