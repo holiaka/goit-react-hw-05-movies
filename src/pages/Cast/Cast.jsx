@@ -29,24 +29,20 @@ const Cast = () => {
       ) : (
         <ul>
           {actorList.map(
-            ({
-              profile_path = '',
-              name = 'Not available',
-              character = 'Not available',
-            }, idx) => (
-              <CastLi key={idx}>
+            (actor) => (
+              <CastLi key={actor?.id}>
                 <div>
                   <img
                     src={
-                      profile_path ? `${baseImageURL}${profile_path}` : noPhoto
+                      actor?.profile_path ? `${baseImageURL}${actor?.profile_path}` : noPhoto
                     }
-                    alt={name}
+                    alt={actor?.name}
                     width="250"
                   />
                 </div>
                 <div>
-                  <h3>Actor's name: {name}</h3>
-                  <p>Character: {character}</p>
+                  <h3>Actor's name: {actor?.name}</h3>
+                  <p>Character: {actor?.character}</p>
                 </div>                
               </CastLi>
             )
